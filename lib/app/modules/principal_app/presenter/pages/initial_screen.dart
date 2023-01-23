@@ -4,18 +4,39 @@ import 'package:flutter/material.dart';
 
 import '../components/transfer_card.dart';
 
-class InitialScreen extends StatelessWidget {
-  const InitialScreen({super.key});
+class InitialScreen extends StatefulWidget {
+  InitialScreen({super.key});
+
+  final List<TransferModel> transferList = [];
+
+  @override
+  State<InitialScreen> createState() => _InitialScreenState();
+}
+
+class _InitialScreenState extends State<InitialScreen> {
+  List<TransferModel> get transferList => widget.transferList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transferências'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: const Icon(Icons.refresh))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.transferRoute);
+          Future future = Navigator.pushNamed(context, Routes.transferRoute);
+          future.then((value) {
+            if (value != null) {
+              transferList.add(value);
+            }
+          });
         },
         child: const Icon(
           Icons.add,
@@ -25,14 +46,14 @@ class InitialScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: transferList.length,
           itemBuilder: ((context, index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: TransferCard(
                 transfer: TransferModel(
-                  account: 123456,
-                  value: 19000,
+                  account: transferList[index].account,
+                  value: transferList[index].value,
                 ),
               ),
             );

@@ -11,11 +11,11 @@ class PrincipalAppModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute(
           Routes.initialRoute,
-          child: (context, args) => const InitialScreen(),
+          child: (context, args) => InitialScreen(),
         ),
         ChildRoute(
           Routes.transferRoute,
-          child: (context, args) => TransferScreen(),
+          child: (context, args) => const TransferScreen(),
         )
       ];
 }

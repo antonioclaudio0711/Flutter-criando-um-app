@@ -67,7 +67,10 @@ class _TransferScreenState extends State<TransferScreen> {
                     value: value,
                   );
 
-                  Navigator.pop(context);
+                  Navigator.pop(
+                    context,
+                    transfer,
+                  );
                 }
               },
               child: Text(
